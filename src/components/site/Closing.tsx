@@ -19,7 +19,6 @@ import {
   Users,
   CheckCircle2,
 } from "lucide-react";
-import schoolLogo from "@/assets/school-logo.png.asset.json";
 import { TEAM, MENTOR } from "./data";
 import { SectionTitle } from "./Sections";
 
