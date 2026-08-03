@@ -161,18 +161,44 @@ export function Contact() {
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="glass grid gap-4 rounded-3xl p-6 sm:p-8">
             {[
-              { icon: School, label: "School Name", value: "Green Valley Public School, Pune" },
+              {
+                icon: School,
+                label: "School Name",
+                value: (
+                  <a
+                    href="https://sunbeamschoolmau.edu.in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="break-words underline decoration-primary/40 underline-offset-2 transition-colors hover:text-primary"
+                  >
+                    Sunbeam School, Mau
+                  </a>
+                ),
+              },
               { icon: Recycle, label: "Project Title", value: "R5 for Waste Management" },
-              { icon: Mail, label: "Email", value: "r5project@greenvalley.edu.in" },
-              { icon: Phone, label: "Phone", value: "+91 98765 43210" },
-            ].map((c) => (
+              {
+                icon: Mail,
+                label: "Website",
+                value: (
+                  <a
+                    href="https://sunbeamschoolmau.edu.in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="break-words underline decoration-primary/40 underline-offset-2 transition-colors hover:text-primary"
+                  >
+                    sunbeamschoolmau.edu.in
+                  </a>
+                ),
+              },
+              { icon: Phone, label: "Phone", value: "+91 9721452816, +91 9721452829" },
+            ].map((c: { icon: LucideIcon; label: string; value: ReactNode }) => (
               <div key={c.label} className="flex items-start gap-4">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground">
                   <c.icon className="size-5" />
                 </span>
                 <div className="min-w-0">
                   <p className="text-xs tracking-wide text-muted-foreground uppercase">{c.label}</p>
-                  <p className="text-sm font-medium break-words">{c.value}</p>
+                  <div className="text-sm font-medium break-words">{c.value}</div>
                 </div>
               </div>
             ))}
