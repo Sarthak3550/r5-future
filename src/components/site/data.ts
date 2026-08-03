@@ -128,11 +128,44 @@ export const QUIZ = [
 ];
 
 export const TEAM = [
-  { name: "Aarav Sharma", role: "Team Leader & Researcher", school: "Green Valley Public School", cls: "Class X" },
-  { name: "Ishita Verma", role: "Data & Survey Lead", school: "Green Valley Public School", cls: "Class IX" },
-  { name: "Kabir Nair", role: "Model & Prototype Builder", school: "Green Valley Public School", cls: "Class X" },
-  { name: "Ananya Rao", role: "Awareness & Presentation", school: "Green Valley Public School", cls: "Class IX" },
+  {
+    name: "Sarthak Sahu",
+    role: "Team Captain",
+    school: "Green Valley Public School",
+    cls: "Class IX",
+    responsibilities: [
+      "Project planning",
+      "Research coordination",
+      "Presentation",
+      "Website development",
+      "Team management",
+    ],
+    skills: ["captain", "research", "innovation", "teamwork"] as const,
+    tone: "leaf",
+  },
+  {
+    name: "Advay Kumar Pathak",
+    role: "Team Member",
+    school: "Green Valley Public School",
+    cls: "Class IX",
+    responsibilities: [
+      "Research",
+      "Data collection",
+      "Content preparation",
+      "Idea development",
+      "Project implementation",
+    ],
+    skills: ["research", "innovation", "teamwork"] as const,
+    tone: "ocean",
+  },
 ];
+
+export const MENTOR = {
+  name: "Krishna Prasad Gupta",
+  role: "Mentor",
+  school: "Green Valley Public School",
+  note: "Guiding the team with expertise, encouragement and a passion for sustainability.",
+};
 
 export const ECO_TIPS = [
   "Carry a cloth bag — one bag can replace 500 plastic bags a year.",
