@@ -1,24 +1,66 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { BackToTop, Chatbot, Loader, Nav, Particles, ScrollProgress } from "@/components/site/Chrome";
+import { Hero } from "@/components/site/Hero";
+import { About, Benefits, Journey, R5Cards, SmartWaste } from "@/components/site/Sections";
+import { Dashboard, Gallery, Quiz, WasteCalculator } from "@/components/site/Interactive";
+import { Contact, Footer, Team } from "@/components/site/Closing";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "R5 for Waste Management – Smart Solutions for a Sustainable Future";
+const description =
+  "An NCSC science project on Reduce, Reuse, Retrieve, Redesign and Recycle: interactive waste journey, quiz, waste calculator and sustainability dashboard.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: title,
+          description,
+          educationalUse: "Science exhibition project",
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Loader />
+      <ScrollProgress />
+      <Particles />
+      <Nav />
+      <main className="relative z-10">
+        <Hero />
+        <About />
+        <R5Cards />
+        <Journey />
+        <Benefits />
+        <SmartWaste />
+        <Gallery />
+        <Quiz />
+        <WasteCalculator />
+        <Dashboard />
+        <Team />
+        <Contact />
+      </main>
+      <Footer />
+      <BackToTop />
+      <Chatbot />
+    </>
   );
 }
