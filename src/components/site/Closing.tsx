@@ -115,14 +115,8 @@ export function Team() {
             className="glass group relative overflow-hidden rounded-3xl p-6 text-center"
           >
             <div className="relative mx-auto w-fit">
-              <div className="mx-auto grid size-24 place-items-center overflow-hidden rounded-full bg-card p-3 shadow-lg ring-1 ring-border transition-transform duration-300 group-hover:scale-105">
-                <img
-                  src={schoolLogo.url}
-                  alt={`${MENTOR.school} logo`}
-                  width={96}
-                  height={96}
-                  className="h-full w-full object-contain"
-                />
+              <div className="mx-auto grid size-24 place-items-center rounded-full bg-gradient-eco text-2xl font-bold text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-105">
+                {initials(MENTOR.name)}
               </div>
               <span className="absolute -right-1 -bottom-1 grid size-8 place-items-center rounded-full bg-accent text-accent-foreground shadow">
                 <GraduationCap className="size-4" />
