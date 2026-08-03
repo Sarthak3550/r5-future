@@ -237,7 +237,7 @@ export function Contact() {
               <MapPin className="mx-auto size-10 text-primary" />
               <p className="mt-3 font-semibold">Google Maps</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Map placeholder — Green Valley Public School, Pune, Maharashtra
+                Map placeholder — Sunbeam School, Mau, Uttar Pradesh
               </p>
             </div>
           </div>
@@ -259,7 +259,7 @@ export function Footer() {
           Reduce • Reuse • Retrieve • Redesign • Recycle
         </p>
         <p className="mt-6 text-xs text-muted-foreground">
-          National Children&apos;s Science Congress project · Green Valley Public School
+          National Children&apos;s Science Congress project · Sunbeam School, Mau
         </p>
       </div>
     </footer>
