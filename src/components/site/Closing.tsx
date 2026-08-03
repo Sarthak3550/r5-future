@@ -23,53 +23,125 @@ import schoolLogo from "@/assets/school-logo.png.asset.json";
 import { TEAM, MENTOR } from "./data";
 import { SectionTitle } from "./Sections";
 
+const SKILL_ICONS: Record<string, { label: string; icon: LucideIcon }> = {
+  captain: { label: "Captain", icon: Crown },
+  research: { label: "Research", icon: FlaskConical },
+  innovation: { label: "Innovation", icon: Lightbulb },
+  teamwork: { label: "Teamwork", icon: Users },
+  mentor: { label: "Mentor", icon: GraduationCap },
+};
+
+function initials(name: string) {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("");
+}
+
 export function Team() {
   return (
     <section id="team" className="section-pad">
       <div className="mx-auto max-w-6xl px-4">
         <SectionTitle
           eyebrow="Our team"
-          title="The students behind the project"
-          sub="Guided by our teacher and mentor at Green Valley Public School."
+          title="Meet Our Team"
+          sub="A passionate team of young innovators committed to creating sustainable solutions for waste management through the R5 approach."
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {TEAM.map((m, i) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {TEAM.map((member, i) => (
             <motion.div
-              key={m.name}
-              initial={{ opacity: 0, y: 20 }}
+              key={member.name}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: i * 0.06 }}
-              whileHover={{ y: -6 }}
-              className="glass rounded-3xl p-6 text-center"
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass group relative overflow-hidden rounded-3xl p-6 text-center"
             >
-              <div className="mx-auto grid size-20 place-items-center rounded-full bg-gradient-eco text-2xl font-bold text-primary-foreground">
-                {m.name.charAt(0)}
+              <div className="relative mx-auto w-fit">
+                <div className="mx-auto grid size-24 place-items-center rounded-full bg-gradient-eco text-2xl font-bold text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-105">
+                  {initials(member.name)}
+                </div>
+                <span className="absolute -right-1 -bottom-1 grid size-8 place-items-center rounded-full bg-accent text-accent-foreground shadow">
+                  {member.role === "Team Captain" ? (
+                    <Crown className="size-4" />
+                  ) : (
+                    <FlaskConical className="size-4" />
+                  )}
+                </span>
               </div>
-              <h3 className="mt-4 font-semibold">{m.name}</h3>
-              <p className="text-sm text-primary">{m.role}</p>
-              <p className="mt-2 text-xs text-muted-foreground">{m.school}</p>
-              <p className="text-xs text-muted-foreground">{m.cls}</p>
+
+              <h3 className="mt-5 text-xl font-semibold">{member.name}</h3>
+              <p className="text-sm font-medium text-primary">{member.role}</p>
+              <p className="text-xs text-muted-foreground">{member.cls}</p>
+
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                {member.responsibilities.map((r) => (
+                  <span
+                    key={r}
+                    className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-[10px] font-medium text-muted-foreground"
+                  >
+                    <CheckCircle2 className="size-3 shrink-0 text-primary" />
+                    {r}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-3 flex flex-wrap justify-center gap-2">
+                {member.skills.map((sk) => {
+                  const skill = SKILL_ICONS[sk];
+                  if (!skill) return null;
+                  const Icon = skill.icon;
+                  return (
+                    <span
+                      key={sk}
+                      className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-[10px] font-semibold text-foreground"
+                    >
+                      <Icon className="size-3 shrink-0 text-primary" />
+                      {skill.label}
+                    </span>
+                  );
+                })}
+              </div>
             </motion.div>
           ))}
-        </div>
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-3">
-          {[
-            { icon: GraduationCap, title: "Guide Teacher", value: "Mrs. Meera Iyer, Science Dept." },
-            { icon: UserRound, title: "Mentor", value: "Dr. Rajesh Kulkarni, Env. Scientist" },
-            { icon: School, title: "School Logo", value: "Green Valley Public School" },
-          ].map((c) => (
-            <div key={c.title} className="glass flex items-center gap-4 rounded-3xl p-5">
-              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-accent text-accent-foreground">
-                <c.icon className="size-6" />
-              </span>
-              <div className="min-w-0">
-                <p className="text-xs tracking-wide text-muted-foreground uppercase">{c.title}</p>
-                <p className="truncate text-sm font-semibold">{c.value}</p>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.5, delay: TEAM.length * 0.12 }}
+            whileHover={{ y: -8, scale: 1.02 }}
+            className="glass group relative overflow-hidden rounded-3xl p-6 text-center"
+          >
+            <div className="relative mx-auto w-fit">
+              <div className="mx-auto grid size-24 place-items-center overflow-hidden rounded-full bg-card p-3 shadow-lg ring-1 ring-border transition-transform duration-300 group-hover:scale-105">
+                <img
+                  src={schoolLogo.url}
+                  alt={`${MENTOR.school} logo`}
+                  width={96}
+                  height={96}
+                  className="h-full w-full object-contain"
+                />
               </div>
+              <span className="absolute -right-1 -bottom-1 grid size-8 place-items-center rounded-full bg-accent text-accent-foreground shadow">
+                <GraduationCap className="size-4" />
+              </span>
             </div>
-          ))}
+
+            <h3 className="mt-5 text-xl font-semibold">{MENTOR.name}</h3>
+            <p className="text-sm font-medium text-primary">{MENTOR.role}</p>
+            <p className="text-xs text-muted-foreground">{MENTOR.school}</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{MENTOR.note}</p>
+
+            <div className="mt-3 flex flex-wrap justify-center gap-2">
+              <span className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-[10px] font-semibold text-foreground">
+                <GraduationCap className="size-3 shrink-0 text-primary" />
+                Mentor
+              </span>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
