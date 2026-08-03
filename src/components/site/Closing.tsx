@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
 import {
   Mail,
   Phone,
@@ -12,8 +13,14 @@ import {
   Twitter,
   Linkedin,
   Recycle,
+  Crown,
+  FlaskConical,
+  Lightbulb,
+  Users,
+  CheckCircle2,
 } from "lucide-react";
-import { TEAM } from "./data";
+import schoolLogo from "@/assets/school-logo.png.asset.json";
+import { TEAM, MENTOR } from "./data";
 import { SectionTitle } from "./Sections";
 
 export function Team() {
