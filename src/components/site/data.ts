@@ -131,7 +131,7 @@ export const TEAM = [
   {
     name: "Sarthak Sahu",
     role: "Team Captain",
-    school: "Green Valley Public School",
+    school: "Sunbeam School, Mau",
     cls: "Class IX",
     responsibilities: [
       "Project planning",
@@ -146,7 +146,7 @@ export const TEAM = [
   {
     name: "Advay Kumar Pathak",
     role: "Team Member",
-    school: "Green Valley Public School",
+    school: "Sunbeam School, Mau",
     cls: "Class IX",
     responsibilities: [
       "Research",
@@ -163,7 +163,7 @@ export const TEAM = [
 export const MENTOR = {
   name: "Krishna Prasad Gupta",
   role: "Mentor",
-  school: "Green Valley Public School",
+  school: "Sunbeam School, Mau",
   note: "Guiding the team with expertise, encouragement and a passion for sustainability.",
 };
 
