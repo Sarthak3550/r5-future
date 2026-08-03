@@ -96,8 +96,8 @@ export function Gallery() {
               onClick={(e) => e.stopPropagation()}
               className="glass max-h-full w-full max-w-3xl overflow-auto rounded-3xl p-3"
             >
-              <img src={GALLERY[active].src} alt={GALLERY[active].label} className="w-full rounded-2xl" />
-              <figcaption className="px-2 py-3 text-sm">{GALLERY[active].label}</figcaption>
+              <img src={GALLERY[active]?.src} alt={GALLERY[active]?.label ?? ""} className="w-full rounded-2xl" />
+              <figcaption className="px-2 py-3 text-sm">{GALLERY[active]?.label}</figcaption>
             </motion.figure>
             <button
               onClick={() => setActive(null)}
