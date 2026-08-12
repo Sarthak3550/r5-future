@@ -18,6 +18,7 @@ import {
   FlaskConical,
   Lightbulb,
   Users,
+  Leaf,
   CheckCircle2,
 } from "lucide-react";
 import { TEAM, MENTOR } from "./data";
@@ -64,11 +65,13 @@ export function Team() {
                   {initials(member.name)}
                 </div>
                 <span className="absolute -right-1 -bottom-1 grid size-8 place-items-center rounded-full bg-accent text-accent-foreground shadow">
-                  {member.role === "Team Captain" ? (
-                    <Crown className="size-4" />
-                  ) : (
-                    <FlaskConical className="size-4" />
-                  )}
+                {member.role === "Team Captain" ? (
+                  <Crown className="size-4" />
+                ) : member.role === "Eco Club Manager" ? (
+                  <Leaf className="size-4" />
+                ) : (
+                  <FlaskConical className="size-4" />
+                )}
                 </span>
               </div>
 

@@ -158,6 +158,21 @@ export const TEAM = [
     skills: ["research", "innovation", "teamwork"] as const,
     tone: "ocean",
   },
+  {
+    name: "Sumaya Firdous",
+    role: "Eco Club Manager",
+    school: "Sunbeam School, Mau",
+    cls: "Class IX",
+    responsibilities: [
+      "Eco club coordination",
+      "Student engagement",
+      "Activity planning",
+      "Awareness campaigns",
+      "Green initiatives",
+    ],
+    skills: ["teamwork", "innovation"] as const,
+    tone: "sun",
+  },
 ];
 
 export const MENTOR = {
