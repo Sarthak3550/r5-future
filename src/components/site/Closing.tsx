@@ -18,6 +18,7 @@ import {
   FlaskConical,
   Lightbulb,
   Users,
+  Leaf,
   CheckCircle2,
 } from "lucide-react";
 import { TEAM, MENTOR } from "./data";
