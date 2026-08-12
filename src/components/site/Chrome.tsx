@@ -178,31 +178,83 @@ export function BackToTop() {
 
 type Msg = { from: "bot" | "user"; text: string };
 
+const GREETING: Msg = {
+  from: "bot",
+  text: "Hi! I'm Eco Assistant 🌱 Ask me anything about waste management, recycling, composting or the R5 model.",
+};
+
 export function Chatbot() {
   const [open, setOpen] = useState(false);
-  const [msgs, setMsgs] = useState<Msg[]>([
-    { from: "bot", text: "Hi! I'm EcoBot 🌱 Ask me anything about the R5 project." },
-  ]);
+  const [msgs, setMsgs] = useState<Msg[]>([GREETING]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "nearest" });
-  }, [msgs, open]);
+  }, [msgs, open, loading]);
 
-  const ask = (q: string) => {
-    const hit = FAQS.find((f) => f.q === q);
-    setMsgs((m) => [
-      ...m,
-      { from: "user", text: q },
-      { from: "bot", text: hit ? hit.a : "Great question! Explore the sections above for details." },
-    ]);
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  const send = async (text: string) => {
+    const question = text.trim();
+    if (!question || loading) return;
+    setInput("");
+    const history = [...msgs, { from: "user" as const, text: question }];
+    setMsgs(history);
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: history
+            .filter((m) => m !== GREETING)
+            .map((m) => ({ role: m.from === "user" ? "user" : "assistant", content: m.text })),
+        }),
+      });
+
+      if (!res.ok || !res.body) {
+        const detail = res.status === 429
+          ? "I'm getting a lot of questions right now — please try again in a moment."
+          : res.status === 402
+            ? "The AI service has run out of credits. Please try again later."
+            : "Sorry, I couldn't reach the eco knowledge base. Please try again.";
+        setMsgs((m) => [...m, { from: "bot", text: detail }]);
+        return;
+      }
+
+      setMsgs((m) => [...m, { from: "bot", text: "" }]);
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        setMsgs((m) => {
+          const next = [...m];
+          next[next.length - 1] = { from: "bot", text: acc };
+          return next;
+        });
+      }
+    } catch {
+      setMsgs((m) => [...m, { from: "bot", text: "Something went wrong. Please try again." }]);
+    } finally {
+      setLoading(false);
+      inputRef.current?.focus();
+    }
   };
 
   return (
     <>
       <button
         onClick={() => setOpen((o) => !o)}
-        aria-label="Open project FAQ chatbot"
+        aria-label="Open Eco Assistant chat"
         className="fixed right-6 bottom-6 z-40 grid size-14 place-items-center rounded-full bg-gradient-eco text-primary-foreground shadow-lg transition-transform hover:scale-105"
       >
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}
@@ -213,39 +265,66 @@ export function Chatbot() {
             initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            className="glass fixed right-6 bottom-24 z-40 flex h-[26rem] w-[min(22rem,calc(100vw-3rem))] flex-col rounded-2xl p-4"
+            className="glass fixed right-6 bottom-24 z-40 flex h-[28rem] w-[min(22rem,calc(100vw-3rem))] flex-col rounded-2xl p-4"
           >
-            <p className="font-display text-sm font-semibold">EcoBot · Project FAQs</p>
+            <p className="font-display text-sm font-semibold">Eco Assistant · R5 helper</p>
             <div className="mt-3 flex-1 space-y-2 overflow-y-auto pr-1 text-sm">
               {msgs.map((m, i) => (
                 <div
                   key={i}
                   className={
                     m.from === "user"
-                      ? "ml-auto w-fit max-w-[85%] rounded-2xl bg-primary px-3 py-2 text-primary-foreground"
-                      : "w-fit max-w-[90%] rounded-2xl bg-muted px-3 py-2 text-foreground"
+                      ? "ml-auto w-fit max-w-[85%] rounded-2xl bg-primary px-3 py-2 whitespace-pre-wrap text-primary-foreground"
+                      : "w-fit max-w-[90%] rounded-2xl bg-muted px-3 py-2 whitespace-pre-wrap text-foreground"
                   }
                 >
                   {m.text}
                 </div>
               ))}
+              {loading && msgs[msgs.length - 1]?.from === "user" && (
+                <div className="w-fit rounded-2xl bg-muted px-3 py-2 text-muted-foreground">Thinking…</div>
+              )}
               <div ref={endRef} />
             </div>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {FAQS.map((f) => (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {FAQS.slice(0, 3).map((f) => (
                 <button
                   key={f.q}
-                  onClick={() => ask(f.q)}
-                  className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent"
+                  onClick={() => void send(f.q)}
+                  disabled={loading}
+                  className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent disabled:opacity-50"
                 >
-                  <Send className="mr-1 inline size-3" />
                   {f.q}
                 </button>
               ))}
             </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                void send(input);
+              }}
+              className="mt-2 flex items-center gap-2"
+            >
+              <input
+                ref={inputRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask an eco question…"
+                className="flex-1 rounded-full border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary"
+              />
+              <button
+                type="submit"
+                disabled={loading || !input.trim()}
+                aria-label="Send message"
+                className="grid size-9 shrink-0 place-items-center rounded-full bg-gradient-eco text-primary-foreground disabled:opacity-50"
+              >
+                <Send className="size-4" />
+              </button>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
 }
+
