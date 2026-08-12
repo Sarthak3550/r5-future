@@ -159,7 +159,7 @@ export const TEAM = [
     tone: "ocean",
   },
   {
-    name: "Sumaya Firdous",
+    name: "Sumaiya Firdous",
     role: "Eco Club Manager",
     school: "Sunbeam School, Mau",
     cls: "Class IX",
