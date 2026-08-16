@@ -49,10 +49,12 @@ function Index() {
       <main className="relative z-10">
         <Hero />
         <About />
-        <R5Cards />
-        <Journey />
+        <ThemeRelevance />
+        <Methodology />
+        <LogBook />
         <Benefits />
         <SmartWaste />
+
         <Gallery />
         <Quiz />
         <WasteCalculator />
