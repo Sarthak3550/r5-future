@@ -137,7 +137,8 @@ function EcoTip() {
     return () => clearInterval(t);
   }, []);
   return (
-    <div className="glass mt-8 flex items-start gap-3 rounded-2xl px-4 py-3">
+    <div className="glass mt-8 flex items-start gap-3 rounded-xl px-4 py-3">
+
       <Leaf className="mt-0.5 size-5 shrink-0 text-primary" />
       <motion.p key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="min-w-0 text-sm text-muted-foreground">
         <span className="font-semibold text-foreground">Eco tip: </span>
