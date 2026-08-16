@@ -73,8 +73,10 @@ export function Particles() {
 
 const LINKS = [
   ["About", "#about"],
-  ["R5", "#r5"],
-  ["Journey", "#journey"],
+  ["The 5 R's", "#relevance"],
+  ["Data", "#methodology"],
+  ["Log Book", "#logbook"],
+
   ["Smart", "#smart"],
   ["Gallery", "#gallery"],
   ["Quiz", "#quiz"],
