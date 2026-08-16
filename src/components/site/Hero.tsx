@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Leaf, Recycle, Sparkles } from "lucide-react";
+import { ArrowDown, Leaf, Recycle, Sparkles, TrendingDown, Scale } from "lucide-react";
 import { useEffect, useState } from "react";
 import heroEarth from "@/assets/hero-earth.jpg";
-import { ECO_TIPS } from "./data";
+import { ECO_TIPS, HYPOTHESIS } from "./data";
 
 export function Hero() {
   return (
@@ -18,7 +18,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <span className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-primary">
+          <span className="glass inline-flex items-center gap-2 rounded-xl px-3 py-1 text-xs font-medium text-primary">
             <Sparkles className="size-3.5" />
             National Children&apos;s Science Congress
           </span>
@@ -28,24 +28,21 @@ export function Hero() {
               Smart Solutions for a Sustainable Future
             </span>
           </h1>
-          <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-            Transforming Waste into Resources through the Power of Reduce, Reuse, Retrieve,
-            Redesign, and Recycle.
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {HYPOTHESIS}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <motion.a
-              href="#about"
-              whileHover={{ scale: 1.04 }}
+              href="#methodology"
+              whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              animate={{ boxShadow: ["var(--shadow-eco)", "0 0 0 12px transparent"] }}
-              transition={{ repeat: Infinity, duration: 2.4 }}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-eco px-6 py-3 font-medium text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-eco px-6 py-3 font-medium text-primary-foreground shadow-[var(--shadow-eco)] transition-shadow hover:shadow-lg"
             >
-              Explore Project <ArrowDown className="size-4" />
+              View Research <ArrowDown className="size-4" />
             </motion.a>
             <a
-              href="#r5"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 font-medium transition-colors hover:bg-accent"
+              href="#relevance"
+              className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 font-medium transition-colors hover:bg-accent"
             >
               <Recycle className="size-4 text-primary" /> The 5 R&apos;s
             </a>
@@ -62,23 +59,76 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, -14, 0] }}
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            className="glass overflow-hidden rounded-[2rem] p-2"
+            className="glass overflow-hidden rounded-xl p-2"
           >
             <img
               src={heroEarth}
               alt="Animated illustration of Earth surrounded by recycling symbols and green leaves"
               width={1280}
               height={1024}
-              className="w-full rounded-[1.6rem] object-cover"
+              className="w-full rounded-xl object-cover"
             />
           </motion.div>
-          <Recycle className="absolute -top-5 -left-5 size-14 animate-spin-slow text-primary/70" />
-          <Leaf className="absolute -right-3 -bottom-4 size-12 text-leaf" />
+
+          <FloatingCard
+            className="-top-6 -left-4 sm:-left-10"
+            delay={0.4}
+            float={-10}
+            icon={<TrendingDown className="size-4" />}
+            value="−55%"
+            label="Landfill waste"
+          />
+          <FloatingCard
+            className="right-0 -bottom-6 sm:-right-8"
+            delay={0.6}
+            float={12}
+            icon={<Scale className="size-4" />}
+            value="76 kg"
+            label="Waste retrieved"
+          />
+          <Recycle className="absolute top-1/2 -left-6 size-12 animate-spin-slow text-primary/60" />
         </motion.div>
       </div>
     </section>
   );
 }
+
+function FloatingCard({
+  className,
+  delay,
+  float,
+  icon,
+  value,
+  label,
+}: {
+  className: string;
+  delay: number;
+  float: number;
+  icon: React.ReactNode;
+  value: string;
+  label: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: [0, float, 0] }}
+      transition={{
+        opacity: { duration: 0.5, delay },
+        y: { repeat: Infinity, duration: 5.5, ease: "easeInOut", delay },
+      }}
+      className={`glass absolute z-10 flex items-center gap-3 rounded-xl px-4 py-3 ${className}`}
+    >
+      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-eco text-primary-foreground">
+        {icon}
+      </span>
+      <div className="min-w-0">
+        <p className="font-display text-lg leading-none font-bold text-gradient-eco">{value}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{label}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 
 function EcoTip() {
   const [i, setI] = useState(0);
