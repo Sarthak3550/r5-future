@@ -198,3 +198,70 @@ export const FAQS: { q: string; a: string }[] = [
   { q: "What technology does the project use?", a: "AI-based segregation, smart dustbins, IoT sensors, waste tracking and data analytics dashboards." },
   { q: "Who can use this model?", a: "Schools, housing societies, markets and municipal bodies can all apply the R5 model at their own scale." },
 ];
+
+export const HYPOTHESIS =
+  "Hypothesis: If waste is managed through the R5 framework — Reduce, Reuse, Retrieve, Redesign and Recycle — then the volume of material reaching landfills can be cut significantly while recovering usable resources from the same waste stream.";
+
+export const THEME_RELEVANCE = [
+  {
+    key: "reduce",
+    title: "Reduce",
+    icon: "leaf",
+    line: "Cut waste at the source before it is ever created.",
+    detail: "Mindful consumption, refill culture and packaging-free choices lower the total load entering the system.",
+  },
+  {
+    key: "reuse",
+    title: "Reuse",
+    icon: "refresh",
+    line: "Extend the life of what already exists.",
+    detail: "Repair, refill and donate so a product serves many cycles instead of one.",
+  },
+  {
+    key: "retrieve",
+    title: "Retrieve",
+    icon: "magnet",
+    line: "Pull value back out of mixed waste.",
+    detail: "Segregation, composting and material recovery turn discards into feedstock.",
+  },
+  {
+    key: "redesign",
+    title: "Redesign",
+    icon: "pencil",
+    line: "Rethink products so waste is designed out.",
+    detail: "Durability, modularity and minimal packaging make circularity the default.",
+  },
+  {
+    key: "recycle",
+    title: "Recycle",
+    icon: "recycle",
+    line: "Return materials to the production loop.",
+    detail: "Processed plastics, metals, glass and paper re-enter manufacturing instead of landfill.",
+  },
+];
+
+export const METHODOLOGY_ROWS = [
+  { stage: "Survey", method: "Household questionnaire", sample: "40 homes", output: "Waste generation baseline" },
+  { stage: "Segregation", method: "Colour-coded bin trial", sample: "3 classrooms", output: "Wet / dry split ratio" },
+  { stage: "Weighing", method: "Daily digital scale log", sample: "14 days", output: "kg per category" },
+  { stage: "Composting", method: "Aerobic pit method", sample: "1 school pit", output: "Compost yield" },
+  { stage: "Retrieval", method: "Manual material sorting", sample: "Dry waste lot", output: "Recyclable fraction" },
+  { stage: "Analysis", method: "Comparison of pre / post R5", sample: "Full dataset", output: "Landfill reduction %" },
+];
+
+export const WASTE_COMPARISON = [
+  { week: "Week 1", landfill: 42, retrieved: 8 },
+  { week: "Week 2", landfill: 36, retrieved: 15 },
+  { week: "Week 3", landfill: 28, retrieved: 22 },
+  { week: "Week 4", landfill: 19, retrieved: 31 },
+];
+
+export const LOGBOOK = [
+  { day: "Day 1", date: "Planning", title: "Topic finalised", desc: "Selected the R5 framework, defined the hypothesis and split team roles." },
+  { day: "Day 2", date: "Literature", title: "Background study", desc: "Studied waste categories, circular economy basics and municipal practices." },
+  { day: "Day 3", date: "Field work", title: "Household survey", desc: "Collected waste-generation data from 40 households in the neighbourhood." },
+  { day: "Day 4", date: "Setup", title: "Bins installed", desc: "Placed colour-coded wet and dry bins in three classrooms with signage." },
+  { day: "Day 5", date: "Data", title: "Daily weighing begins", desc: "Logged the weight of each waste category every evening for two weeks." },
+  { day: "Day 6", date: "Experiment", title: "Compost pit started", desc: "Layered wet waste with dry leaves and monitored moisture and temperature." },
+  { day: "Day 7", date: "Analysis", title: "Results compiled", desc: "Compared landfill-bound vs retrieved waste and prepared charts for the report." },
+];

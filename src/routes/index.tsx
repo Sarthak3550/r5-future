@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BackToTop, Chatbot, Loader, Nav, Particles, ScrollProgress } from "@/components/site/Chrome";
 import { Hero } from "@/components/site/Hero";
-import { About, Benefits, Journey, R5Cards, SmartWaste } from "@/components/site/Sections";
+import { About, Benefits, SmartWaste } from "@/components/site/Sections";
+import { LogBook, Methodology, ThemeRelevance } from "@/components/site/Research";
 import { Dashboard, Gallery, Quiz, WasteCalculator } from "@/components/site/Interactive";
 import { Contact, Footer, Team } from "@/components/site/Closing";
+
 
 const title = "R5 for Waste Management – Smart Solutions for a Sustainable Future";
 const description =
@@ -47,10 +49,12 @@ function Index() {
       <main className="relative z-10">
         <Hero />
         <About />
-        <R5Cards />
-        <Journey />
+        <ThemeRelevance />
+        <Methodology />
+        <LogBook />
         <Benefits />
         <SmartWaste />
+
         <Gallery />
         <Quiz />
         <WasteCalculator />
