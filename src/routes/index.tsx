@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BackToTop, Chatbot, Loader, Nav, Particles, ScrollProgress } from "@/components/site/Chrome";
+import { BackToTop, Chatbot, Nav, Particles, ScrollProgress } from "@/components/site/Chrome";
 import { Hero } from "@/components/site/Hero";
 import { About, Benefits, SmartWaste } from "@/components/site/Sections";
 import { LogBook, Methodology, ThemeRelevance } from "@/components/site/Research";
@@ -42,7 +42,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <Loader />
       <ScrollProgress />
       <Particles />
       <Nav />
