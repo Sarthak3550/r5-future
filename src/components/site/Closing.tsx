@@ -206,12 +206,13 @@ export function Contact() {
               </div>
             ))}
             <div className="mt-2 flex flex-wrap gap-3">
-              <a
-                href="#contact"
+              <button
+                type="button"
+                onClick={() => window.print()}
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-eco px-5 py-2.5 text-sm font-medium text-primary-foreground"
               >
                 <Download className="size-4" /> Download Project Report (PDF)
-              </a>
+              </button>
               <div className="flex items-center gap-2">
                 <Share2 className="size-4 text-muted-foreground" />
                 {[
@@ -235,14 +236,17 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="glass grid min-h-64 place-items-center rounded-3xl p-6 text-center">
-            <div>
-              <MapPin className="mx-auto size-10 text-primary" />
-              <p className="mt-3 font-semibold">Google Maps</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Map placeholder — Sunbeam School, Mau, Uttar Pradesh
-              </p>
+          <div className="glass overflow-hidden rounded-3xl p-3">
+            <div className="mb-2 flex items-center gap-2 px-1 text-sm font-medium">
+              <MapPin className="size-4 text-primary" /> Sunbeam School, Mau, Uttar Pradesh
             </div>
+            <iframe
+              title="Map of Sunbeam School, Mau, Uttar Pradesh"
+              src="https://www.google.com/maps?q=Sunbeam%20School%20Mau%20Uttar%20Pradesh&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-72 w-full rounded-2xl border-0"
+            />
           </div>
         </div>
       </div>
