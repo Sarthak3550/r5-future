@@ -7,6 +7,7 @@ import {
   MessageCircle,
   X,
   Recycle,
+  Leaf,
   Send,
   Menu,
 } from "lucide-react";
@@ -40,9 +41,6 @@ export function Loader() {
         >
           <div className="flex flex-col items-center gap-4">
             <Recycle className="size-14 animate-spin-slow text-primary" />
-            <p className="text-sm font-medium tracking-widest text-muted-foreground uppercase">
-              Loading R5
-            </p>
           </div>
         </motion.div>
       )}
@@ -54,19 +52,22 @@ export function Particles() {
   const bits = Array.from({ length: 16 }, (_, i) => i);
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {bits.map((i) => (
-        <span
-          key={i}
-          className="absolute bottom-[-10vh] text-primary/25"
-          style={{
-            left: `${(i * 6.3 + 3) % 100}%`,
-            fontSize: `${10 + (i % 4) * 6}px`,
-            animation: `float-up ${16 + (i % 5) * 5}s linear ${i * 1.4}s infinite`,
-          }}
-        >
-          {i % 2 === 0 ? "🍃" : "♻️"}
-        </span>
-      ))}
+      {bits.map((i) => {
+        const Icon = i % 2 === 0 ? Leaf : Recycle;
+        const size = 12 + (i % 4) * 6;
+        return (
+          <span
+            key={i}
+            className="absolute bottom-[-10vh] text-primary/20"
+            style={{
+              left: `${(i * 6.3 + 3) % 100}%`,
+              animation: `float-up ${16 + (i % 5) * 5}s linear ${i * 1.4}s infinite`,
+            }}
+          >
+            <Icon style={{ width: size, height: size }} />
+          </span>
+        );
+      })}
     </div>
   );
 }
