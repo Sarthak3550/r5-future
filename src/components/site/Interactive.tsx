@@ -10,6 +10,8 @@ import {
   Zap,
   Cloud,
   Droplets,
+  Check,
+  XCircle,
 } from "lucide-react";
 import {
   Bar,
@@ -129,6 +131,12 @@ export function Quiz() {
           sub="Five quick questions — answer them all and earn an achievement badge."
         />
         <div className="glass space-y-6 rounded-3xl p-6 sm:p-8">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-sm font-semibold text-primary">{Object.keys(answers).length} of {QUIZ.length} answered</p>
+            <div className="h-2 min-w-28 flex-1 overflow-hidden rounded-full bg-muted">
+              <motion.div className="h-full bg-gradient-eco" animate={{ width: `${(Object.keys(answers).length / QUIZ.length) * 100}%` }} />
+            </div>
+          </div>
           {QUIZ.map((q, qi) => (
             <div key={qi}>
               <p className="font-medium">
@@ -155,11 +163,12 @@ export function Quiz() {
                               : "border-border hover:bg-accent",
                       ].join(" ")}
                     >
-                      {opt}
+                      <span className="flex items-center justify-between gap-2">{opt}{correct ? <Check className="size-4 text-primary" /> : wrong ? <XCircle className="size-4 text-destructive" /> : null}</span>
                     </button>
                   );
                 })}
               </div>
+              {submitted && <p className={`mt-2 text-xs ${answers[qi] === q.answer ? "text-primary" : "text-destructive"}`}>{answers[qi] === q.answer ? "Correct — great R5 thinking." : `The correct answer is ${q.options[q.answer]}.`}</p>}
             </div>
           ))}
 
@@ -347,6 +356,21 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
   );
 }
 
+function Gauge({ value, max, color }: { value: number; max: number; color: string }) {
+  const radius = 42;
+  const circumference = 2 * Math.PI * radius;
+  const progress = Math.min(value / max, 1);
+  return (
+    <div className="relative size-28 shrink-0">
+      <svg viewBox="0 0 100 100" className="size-full -rotate-90" aria-hidden="true">
+        <circle cx="50" cy="50" r={radius} fill="none" stroke="var(--muted)" strokeWidth="9" />
+        <motion.circle cx="50" cy="50" r={radius} fill="none" stroke={color} strokeWidth="9" strokeLinecap="round" strokeDasharray={circumference} initial={{ strokeDashoffset: circumference }} whileInView={{ strokeDashoffset: circumference * (1 - progress) }} viewport={{ once: true }} transition={{ duration: 1.4, ease: "easeOut" }} />
+      </svg>
+      <span className="absolute inset-0 grid place-items-center text-xs font-bold text-foreground">{Math.round(progress * 100)}%</span>
+    </div>
+  );
+}
+
 const STATS = [
   { icon: TreePine, label: "Trees Saved", to: 1240, suffix: "" },
   { icon: Recycle, label: "Plastic Recycled", to: 8600, suffix: " kg" },
@@ -374,11 +398,14 @@ export function Dashboard() {
               transition={{ delay: i * 0.06 }}
               className="glass rounded-3xl p-6"
             >
-              <s.icon className="size-7 text-primary" />
-              <div className="mt-4">
-                <Counter to={s.to} suffix={s.suffix} />
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <s.icon className="size-7 text-primary" />
+                  <div className="mt-4"><Counter to={s.to} suffix={s.suffix} /></div>
+                  <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+                </div>
+                <Gauge value={s.to} max={s.to * 1.25} color="var(--primary)" />
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
             </motion.div>
           ))}
         </div>

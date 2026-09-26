@@ -25,29 +25,7 @@ export function ScrollProgress() {
 }
 
 export function Loader() {
-  const [done, setDone] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setDone(true), 1300);
-    return () => clearTimeout(t);
-  }, []);
-  return (
-    <AnimatePresence>
-      {!done && (
-        <motion.div
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[100] grid place-items-center bg-background"
-        >
-          <div className="flex flex-col items-center gap-4">
-            <Recycle className="size-14 animate-spin-slow text-primary" />
-            <p className="text-sm font-medium tracking-widest text-muted-foreground uppercase">
-              Loading R5
-            </p>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+  return null;
 }
 
 export function Particles() {
@@ -57,15 +35,14 @@ export function Particles() {
       {bits.map((i) => (
         <span
           key={i}
-          className="absolute bottom-[-10vh] text-primary/25"
+          className="r5-particle absolute bottom-[-10vh]"
           style={{
             left: `${(i * 6.3 + 3) % 100}%`,
-            fontSize: `${10 + (i % 4) * 6}px`,
+            width: `${8 + (i % 4) * 3}px`,
+            height: `${8 + (i % 4) * 3}px`,
             animation: `float-up ${16 + (i % 5) * 5}s linear ${i * 1.4}s infinite`,
           }}
-        >
-          {i % 2 === 0 ? "🍃" : "♻️"}
-        </span>
+        />
       ))}
     </div>
   );

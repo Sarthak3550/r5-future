@@ -8,6 +8,11 @@ import {
   ArrowUpRight,
   FlaskConical,
   NotebookPen,
+  ClipboardList,
+  Search,
+  Scale,
+  Sprout,
+  BarChart3,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -30,6 +35,8 @@ const ICONS: Record<string, LucideIcon> = {
   pencil: PencilRuler,
   recycle: Recycle,
 };
+
+const LOG_ICONS = [ClipboardList, Search, Users, Trash2, Scale, Sprout, BarChart3];
 
 export function ThemeRelevance() {
   return (
@@ -183,7 +190,7 @@ export function LogBook() {
               className="relative flex gap-5"
             >
               <span className="z-10 grid size-10 shrink-0 place-items-center rounded-full bg-gradient-eco text-primary-foreground">
-                <NotebookPen className="size-4" />
+                {(() => { const Icon = LOG_ICONS[i] ?? NotebookPen; return <Icon className="size-4" />; })()}
               </span>
               <div className="glass min-w-0 flex-1 rounded-xl px-5 py-4 transition-transform duration-300 hover:-translate-y-1">
                 <div className="flex flex-wrap items-center gap-2">

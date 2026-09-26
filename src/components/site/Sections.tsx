@@ -13,6 +13,7 @@ import {
   Repeat,
   Users,
   CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import smartTech from "@/assets/smart-tech.jpg";
@@ -81,7 +82,7 @@ export function R5Cards() {
           title="Reduce · Reuse · Retrieve · Redesign · Recycle"
           sub="Five connected actions that turn a linear waste stream into a circular resource loop."
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {R5.map((r, i) => {
             const Icon = ICONS[r.icon] ?? Recycle;
             return (
@@ -92,25 +93,35 @@ export function R5Cards() {
                 whileInView="show"
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ delay: i * 0.07 }}
-                whileHover={{ y: -8 }}
-                className="glass group rounded-3xl p-6"
+                whileHover={{ y: -8, rotate: i % 2 === 0 ? -1 : 1 }}
+                className="r5-flip group min-h-[18rem]"
               >
-                <div className="flex items-center gap-3">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-eco text-primary-foreground transition-transform group-hover:rotate-12">
-                    <Icon className="size-6" />
-                  </span>
-                  <h3 className="truncate text-xl font-semibold">
-                    <span className="text-primary">{i + 1}.</span> {r.title}
-                  </h3>
+                <div className="r5-flip-inner relative h-full min-h-[18rem] w-full group-hover:r5-flip-hover">
+                  <div className={`r5-flip-face glass absolute inset-0 flex h-full flex-col justify-between rounded-3xl p-5 ${i === 0 ? "r5-tone-forest" : i === 1 ? "r5-tone-water" : i === 2 ? "r5-tone-earth" : i === 3 ? "r5-tone-sky" : "r5-tone-moss"}`}>
+                    <div className="flex items-start justify-between">
+                      <span className="grid size-12 place-items-center rounded-2xl bg-gradient-eco text-primary-foreground transition-transform group-hover:rotate-12">
+                        <Icon className="size-6" />
+                      </span>
+                      <span className="font-display text-3xl font-bold text-muted-foreground/50">0{i + 1}</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold">{r.title}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground">Hover to explore</p>
+                      <ArrowRight className="mt-5 size-5 text-primary" />
+                    </div>
+                  </div>
+                  <div className="r5-flip-face r5-flip-back glass absolute inset-0 h-full rounded-3xl p-5">
+                    <h3 className="text-lg font-semibold text-primary">{r.title}</h3>
+                    <ul className="mt-4 space-y-3">
+                      {r.points.map((p) => (
+                        <li key={p} className="flex gap-2 text-sm text-muted-foreground">
+                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <ul className="mt-5 space-y-2.5">
-                  {r.points.map((p) => (
-                    <li key={p} className="flex gap-2 text-sm text-muted-foreground">
-                      <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
               </motion.article>
             );
           })}
@@ -140,7 +151,7 @@ export function Journey() {
               className="relative flex gap-5 pl-0"
             >
               <span className="z-10 grid size-10 shrink-0 place-items-center rounded-full bg-gradient-eco text-sm font-bold text-primary-foreground">
-                {i + 1}
+                <span className="font-display">{String(i + 1).padStart(2, "0")}</span>
               </span>
               <div className="glass min-w-0 flex-1 rounded-2xl px-5 py-4">
                 <h3 className="text-lg font-semibold">{s.title}</h3>
