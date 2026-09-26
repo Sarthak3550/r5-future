@@ -1,3 +1,0 @@
-- [ ] Redesign hero, R5 cards, timeline, quiz, calculator, and dashboard interactions
-- [ ] Remove loading/debug emoji text and add a real map and report download
-- [ ] Verify desktop and mobile flows, build output, and key interactions

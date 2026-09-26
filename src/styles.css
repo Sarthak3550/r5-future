@@ -35,8 +35,6 @@
   --color-ocean-foreground: var(--ocean-foreground);
   --color-leaf: var(--leaf);
   --color-sun: var(--sun);
-  --color-earth: var(--earth);
-  --color-sky: var(--sky);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -79,8 +77,6 @@
   --ocean-foreground: oklch(0.99 0.01 220);
   --leaf: oklch(0.72 0.19 145);
   --sun: oklch(0.82 0.16 85);
-  --earth: oklch(0.48 0.09 52);
-  --sky: oklch(0.68 0.13 224);
   --chart-1: oklch(0.6 0.16 155);
   --chart-2: oklch(0.58 0.13 232);
   --chart-3: oklch(0.72 0.19 145);
@@ -104,7 +100,6 @@
   --glass-bg: color-mix(in oklab, white 62%, transparent);
   --glass-border: color-mix(in oklab, white 70%, transparent);
   --shadow-eco: 0 18px 45px -18px color-mix(in oklab, var(--primary) 55%, transparent);
-  --gradient-hero: linear-gradient(135deg, color-mix(in oklab, var(--primary) 18%, transparent), color-mix(in oklab, var(--sky) 13%, transparent) 48%, color-mix(in oklab, var(--earth) 10%, transparent));
 }
 
 .dark {
@@ -130,8 +125,6 @@
   --ocean: oklch(0.68 0.13 230);
   --leaf: oklch(0.78 0.18 148);
   --sun: oklch(0.85 0.15 85);
-  --earth: oklch(0.68 0.08 55);
-  --sky: oklch(0.76 0.13 224);
   --sidebar: oklch(0.22 0.04 195);
   --sidebar-foreground: oklch(0.96 0.015 160);
   --sidebar-border: oklch(1 0 0 / 12%);
@@ -139,7 +132,6 @@
   --glass-bg: color-mix(in oklab, black 40%, transparent);
   --glass-border: color-mix(in oklab, white 14%, transparent);
   --shadow-eco: 0 18px 45px -18px color-mix(in oklab, black 80%, transparent);
-  --gradient-hero: linear-gradient(135deg, color-mix(in oklab, var(--primary) 21%, transparent), color-mix(in oklab, var(--sky) 16%, transparent) 48%, color-mix(in oklab, var(--earth) 15%, transparent));
 }
 
 @layer base {
@@ -155,7 +147,6 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image: radial-gradient(circle at 10% 5%, color-mix(in oklab, var(--primary) 7%, transparent), transparent 30rem), radial-gradient(circle at 90% 18%, color-mix(in oklab, var(--sky) 6%, transparent), transparent 26rem);
   }
 
   h1,
@@ -186,63 +177,6 @@
 
 @utility section-pad {
   padding-block: 5rem;
-}
-
-@utility hero-surface {
-  background: var(--gradient-hero);
-}
-
-@utility r5-particle {
-  border: 1px solid color-mix(in oklab, var(--primary) 28%, transparent);
-  border-radius: 999px 40% 999px 40%;
-  background: color-mix(in oklab, var(--leaf) 18%, transparent);
-  opacity: 0.45;
-}
-
-@utility r5-flip {
-  perspective: 1200px;
-}
-
-@utility r5-flip-inner {
-  transform-style: preserve-3d;
-  transition: transform 600ms cubic-bezier(0.2, 0.75, 0.2, 1);
-}
-
-@utility r5-flip-hover {
-  transform: rotateY(180deg);
-}
-
-@utility r5-flip-face {
-  backface-visibility: hidden;
-}
-
-@utility r5-flip-back {
-  transform: rotateY(180deg);
-}
-
-@utility r5-tone-forest {
-  background: color-mix(in oklab, var(--primary) 16%, var(--card));
-  border-color: color-mix(in oklab, var(--primary) 34%, var(--border));
-}
-
-@utility r5-tone-water {
-  background: color-mix(in oklab, var(--sky) 14%, var(--card));
-  border-color: color-mix(in oklab, var(--sky) 36%, var(--border));
-}
-
-@utility r5-tone-earth {
-  background: color-mix(in oklab, var(--earth) 13%, var(--card));
-  border-color: color-mix(in oklab, var(--earth) 34%, var(--border));
-}
-
-@utility r5-tone-sky {
-  background: color-mix(in oklab, var(--sky) 20%, var(--card));
-  border-color: color-mix(in oklab, var(--sky) 38%, var(--border));
-}
-
-@utility r5-tone-moss {
-  background: color-mix(in oklab, var(--leaf) 18%, var(--card));
-  border-color: color-mix(in oklab, var(--leaf) 40%, var(--border));
 }
 
 @keyframes float-up {
